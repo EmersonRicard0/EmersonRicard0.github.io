@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash } from "lucide-react";
@@ -35,7 +34,6 @@ function RoteirosList({
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Meus Roteiros</h2>
         {/* O botão de novo roteiro agora fica no modal */}
-        <NovoRoteiroModal onNovoRoteiro={() => {}} />
       </div>
       <ul className="space-y-3">
         {roteiros.map((roteiro) => (
