@@ -1,4 +1,6 @@
-import { useState } from "react";
+
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash } from "lucide-react";
 import NovoRoteiroModal from "@/components/NovoRoteiroModal";
@@ -20,6 +22,18 @@ const roteirosExemplo = [
   },
 ];
 
+function getUserRoteiros(email: string) {
+  const data = localStorage.getItem(`roteiros_${email}`);
+  if (data) return JSON.parse(data);
+  // Se não houver roteiros salvos, salvar exemplo inicial só na primeira vez
+  localStorage.setItem(`roteiros_${email}`, JSON.stringify(roteirosExemplo));
+  return roteirosExemplo;
+}
+
+function setUserRoteiros(email: string, roteiros: any[]) {
+  localStorage.setItem(`roteiros_${email}`, JSON.stringify(roteiros));
+}
+
 function RoteirosList({
   roteiros,
   onDelete,
@@ -33,7 +47,6 @@ function RoteirosList({
     <section>
       <div className="flex justify-between items-center mb-4">
         <h2 className="text-xl font-semibold">Meus Roteiros</h2>
-        {/* O botão de novo roteiro agora fica no modal */}
       </div>
       <ul className="space-y-3">
         {roteiros.map((roteiro) => (
@@ -66,34 +79,62 @@ function RoteirosList({
 }
 
 export default function Dashboard() {
-  const nomeUsuario = "Viajante";
-  const [roteiros, setRoteiros] = useState(roteirosExemplo);
+  const navigate = useNavigate();
+  const [nomeUsuario, setNomeUsuario] = useState<string>("Viajante");
+  const [roteiros, setRoteiros] = useState<any[]>([]);
+
+  // Verifica se está logado
+  useEffect(() => {
+    const userEmail = localStorage.getItem("logged_user");
+    if (!userEmail) {
+      navigate("/login", { replace: true });
+      return;
+    }
+    setNomeUsuario(userEmail.split("@")[0] || "Viajante");
+    setRoteiros(getUserRoteiros(userEmail));
+  }, [navigate]);
 
   function handleNovoRoteiro(novo: { nome: string; destino: string; dataInicio: string; dataFim: string }) {
-    setRoteiros((prev) =>
-      [
-        ...prev,
-        {
-          ...novo,
-          id: Date.now(),
-        },
-      ]
-    );
+    const userEmail = localStorage.getItem("logged_user");
+    if (!userEmail) return;
+    const newRoteiros = [
+      ...roteiros,
+      {
+        ...novo,
+        id: Date.now(),
+      },
+    ];
+    setRoteiros(newRoteiros);
+    setUserRoteiros(userEmail, newRoteiros);
   }
 
   function handleDelete(id: number) {
-    setRoteiros((prev) => prev.filter((r) => r.id !== id));
+    const userEmail = localStorage.getItem("logged_user");
+    if (!userEmail) return;
+    const updated = roteiros.filter((r) => r.id !== id);
+    setRoteiros(updated);
+    setUserRoteiros(userEmail, updated);
   }
 
   function handleEdit(id: number) {
     alert("Funcionalidade de edição ainda não implementada!");
   }
 
+  function handleLogout() {
+    localStorage.removeItem("logged_user");
+    navigate("/login", { replace: true });
+  }
+
   return (
     <div className="max-w-2xl mx-auto py-8">
-      <h1 className="text-3xl font-bold mb-2">
-        Olá, {nomeUsuario} 👋
-      </h1>
+      <div className="flex justify-between items-center mb-2">
+        <h1 className="text-3xl font-bold">
+          Olá, {nomeUsuario} 👋
+        </h1>
+        <Button variant="outline" size="sm" onClick={handleLogout}>
+          Sair
+        </Button>
+      </div>
       <p className="text-muted-foreground mb-8">
         Aqui estão seus roteiros de viagem.
       </p>
