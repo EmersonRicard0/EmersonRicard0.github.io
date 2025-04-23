@@ -1,15 +1,15 @@
 
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Star } from "lucide-react";
+import { Star, Image as ImageIcon } from "lucide-react";
 
 interface NovoLocalFormProps {
   onAdd: (novo: {
     nome: string;
     local: string;
-    imagemUrl: string;
+    imagemSrc: string;
     estrelas: number;
     comentario: string;
   }) => void;
@@ -18,20 +18,44 @@ interface NovoLocalFormProps {
 const FormularioNovoLocal: React.FC<NovoLocalFormProps> = ({ onAdd }) => {
   const [nome, setNome] = useState("");
   const [local, setLocal] = useState("");
-  const [imagemUrl, setImagemUrl] = useState("");
+  const [imagemSrc, setImagemSrc] = useState<string>("");
+  const [imagemFile, setImagemFile] = useState<File | null>(null);
   const [estrelas, setEstrelas] = useState(5);
   const [comentario, setComentario] = useState("");
   const [enviando, setEnviando] = useState(false);
+
+  // Preview handler
+  function handleImagemChange(e: ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0];
+    if (file) {
+      setImagemFile(file);
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setImagemSrc(reader.result as string);
+      };
+      reader.readAsDataURL(file);
+    } else {
+      setImagemFile(null);
+      setImagemSrc("");
+    }
+  }
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     setEnviando(true);
 
-    if (nome && local && imagemUrl && comentario && estrelas > 0) {
-      onAdd({ nome, local, imagemUrl, estrelas, comentario });
+    if (nome && local && imagemSrc && comentario && estrelas > 0) {
+      onAdd({
+        nome,
+        local,
+        imagemSrc,
+        estrelas,
+        comentario
+      });
       setNome("");
       setLocal("");
-      setImagemUrl("");
+      setImagemSrc("");
+      setImagemFile(null);
       setComentario("");
       setEstrelas(5);
     }
@@ -54,13 +78,22 @@ const FormularioNovoLocal: React.FC<NovoLocalFormProps> = ({ onAdd }) => {
           onChange={e => setLocal(e.target.value)}
           required
         />
-        <Input
-          type="url"
-          placeholder="URL da imagem (ex: Unsplash)"
-          value={imagemUrl}
-          onChange={e => setImagemUrl(e.target.value)}
-          required
-        />
+        <label className="flex flex-col gap-1 text-sm text-gray-600 font-medium">
+          <span className="flex items-center gap-2">
+            <ImageIcon size={18} /> Foto do local:
+          </span>
+          <Input
+            type="file"
+            accept="image/*"
+            onChange={handleImagemChange}
+            required
+          />
+        </label>
+        {imagemSrc && (
+          <div className="w-full flex justify-center">
+            <img src={imagemSrc} alt="Pré-visualização do local" className="rounded-lg max-h-40 object-cover shadow mt-2" />
+          </div>
+        )}
       </div>
       <div className="flex flex-col gap-1">
         <label className="text-sm text-gray-600">Sua avaliação:</label>
@@ -97,4 +130,3 @@ const FormularioNovoLocal: React.FC<NovoLocalFormProps> = ({ onAdd }) => {
 };
 
 export default FormularioNovoLocal;
-

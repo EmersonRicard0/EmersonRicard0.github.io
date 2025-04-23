@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Image } from "lucide-react";
@@ -96,7 +95,7 @@ const pontosIniciais = [
 type NovoLocal = {
   nome: string;
   local: string;
-  imagemUrl: string;
+  imagemSrc: string;
   estrelas: number;
   comentario: string;
 };
@@ -120,7 +119,7 @@ const PontosTuristicos = () => {
               <Card key={i} className="minimal-card p-0 overflow-hidden flex flex-col">
                 <div className="w-full h-44 bg-gray-100 flex items-center justify-center overflow-hidden relative">
                   <img
-                    src={p.imagemUrl}
+                    src={p.imagemSrc}
                     alt={p.nome}
                     className="object-cover w-full h-full"
                     onError={e => (e.currentTarget.src = '/placeholder.svg')}
@@ -193,4 +192,3 @@ const PontosTuristicos = () => {
 };
 
 export default PontosTuristicos;
-
