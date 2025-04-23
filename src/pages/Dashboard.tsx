@@ -1,9 +1,9 @@
-
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash } from "lucide-react";
 import NovoRoteiroModal from "@/components/NovoRoteiroModal";
+import PontosTuristicos from "@/components/PontosTuristicos";
 
 const roteirosExemplo = [
   {
@@ -142,6 +142,9 @@ export default function Dashboard() {
         <NovoRoteiroModal onNovoRoteiro={handleNovoRoteiro} />
       </div>
       <RoteirosList roteiros={roteiros} onDelete={handleDelete} onEdit={handleEdit} />
+
+      {/* NOVA SEÇÃO: Pontos Turísticos */}
+      <PontosTuristicos />
     </div>
   );
 }
