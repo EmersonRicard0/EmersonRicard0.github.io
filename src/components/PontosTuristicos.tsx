@@ -1,12 +1,13 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { MapPin, Image } from "lucide-react";
 import ImagemCarrossel from "./ImagemCarrossel";
 import AvaliacaoComentario from "./AvaliacaoComentario";
+import FormularioNovoLocal from "./FormularioNovoLocal";
 
-// Fotos simulando busca no Google (urls públicas)
-const pontos = [
+// Dados iniciais simulando busca
+const pontosIniciais = [
   {
     nome: "Praia de Ponta Negra",
     local: "Natal/RN",
@@ -92,12 +93,64 @@ const pontos = [
   },
 ];
 
+type NovoLocal = {
+  nome: string;
+  local: string;
+  imagemUrl: string;
+  estrelas: number;
+  comentario: string;
+};
+
 const PontosTuristicos = () => {
+  const [novosLocais, setNovosLocais] = useState<NovoLocal[]>([]);
+
+  function handleAddNovoLocal(data: NovoLocal) {
+    setNovosLocais(prev => [data, ...prev]);
+  }
+
   return (
     <section className="mt-12">
       <h2 className="text-xl font-semibold mb-6">Locais mais visitados & Pontos Turísticos</h2>
+      {/* Novos locais adicionados pelo usuário */}
+      {novosLocais.length > 0 && (
+        <div className="mb-8">
+          <h3 className="text-base font-semibold text-violet-600 mb-2">Novos lugares da comunidade</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {novosLocais.map((p, i) => (
+              <Card key={i} className="minimal-card p-0 overflow-hidden flex flex-col">
+                <div className="w-full h-44 bg-gray-100 flex items-center justify-center overflow-hidden relative">
+                  <img
+                    src={p.imagemUrl}
+                    alt={p.nome}
+                    className="object-cover w-full h-full"
+                    onError={e => (e.currentTarget.src = '/placeholder.svg')}
+                  />
+                </div>
+                <CardContent className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <div className="flex items-center gap-2 mb-1">
+                      <MapPin size={16} className="text-violet-600" />
+                      <span className="font-semibold text-gray-700">{p.nome}</span>
+                    </div>
+                    <div className="text-gray-500 text-xs flex items-center gap-1 mb-2">
+                      <Image size={14} className="opacity-60" /> {p.local}
+                    </div>
+                    <AvaliacaoComentario
+                      nome="Visitante"
+                      estrelas={p.estrelas}
+                      comentario={p.comentario}
+                    />
+                  </div>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Lista fixa de pontos turísticos top */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {pontos.map((ponto, i) => (
+        {pontosIniciais.map((ponto, i) => (
           <Card
             key={i}
             className="minimal-card p-0 overflow-hidden flex flex-col hover:shadow-lg transition-shadow"
@@ -132,6 +185,9 @@ const PontosTuristicos = () => {
           </Card>
         ))}
       </div>
+
+      {/* Formulário para enviar novo local */}
+      <FormularioNovoLocal onAdd={handleAddNovoLocal} />
     </section>
   );
 };
