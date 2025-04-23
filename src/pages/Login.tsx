@@ -5,12 +5,16 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Lock, Mail, UserPlus, LogIn } from "lucide-react";
 
+// Nova cor do campo de "esqueci a senha"
+const forgotColor = "#9b87f5";
+
 export default function Login() {
   const navigate = useNavigate();
   const [isCadastro, setIsCadastro] = useState(false);
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [erro, setErro] = useState("");
+  const [showRecuperar, setShowRecuperar] = useState(false);
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -84,6 +88,58 @@ export default function Login() {
             />
           </div>
         </div>
+        {/* Esqueci a senha */}
+        {!isCadastro && (
+          <div className="flex justify-end my-0.5">
+            <button
+              type="button"
+              onClick={() => setShowRecuperar((v) => !v)}
+              style={{
+                color: forgotColor,
+                background: "none",
+                border: "none",
+                padding: 0,
+                fontSize: "0.96rem",
+                cursor: "pointer",
+                textDecoration: "underline",
+                textUnderlineOffset: "2.5px",
+                fontWeight: 500,
+              }}
+              tabIndex={0}
+            >
+              Esqueci a senha
+            </button>
+          </div>
+        )}
+        {showRecuperar && (
+          <div className="mb-2 rounded border border-[#D6BCFA] bg-white text-sm px-3 py-2 text-[#333] shadow">
+            <b className="block mb-1" style={{ color: forgotColor }}>Recuperar senha:</b>
+            <div>
+              Digite seu email acima e clique em "Recuperar". Você receberá um email fictício com instruções ou, caso seja cadastro local, redefina sua senha cadastrando uma nova conta com mesmo email.
+            </div>
+            <Button
+              type="button"
+              style={{
+                background: forgotColor,
+                color: "#fff",
+                marginTop: "10px",
+                minWidth: 110,
+              }}
+              size="sm"
+              onClick={() => {
+                if (!email) {
+                  setErro("Digite seu email para recuperar sua senha.");
+                } else {
+                  setErro("");
+                  alert("Em um sistema real, você receberia um email para redefinir sua senha. Aqui, basta cadastrar novamente esse usuário.");
+                  setShowRecuperar(false);
+                }
+              }}
+            >
+              Recuperar
+            </Button>
+          </div>
+        )}
         {erro && (
           <div className="text-destructive text-sm mb-2">{erro}</div>
         )}
@@ -121,3 +177,4 @@ export default function Login() {
     </div>
   );
 }
+
