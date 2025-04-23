@@ -1,4 +1,3 @@
-
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
@@ -46,7 +45,6 @@ const Index = () => {
               <li key={i}>
                 <NeonCard>
                   <span className="flex items-center gap-2 text-gray-700">
-                    <span className="text-primary font-bold text-lg">•</span>
                     <span className="text-base">{desc}</span>
                   </span>
                 </NeonCard>
@@ -73,4 +71,3 @@ const Index = () => {
 };
 
 export default Index;
-
