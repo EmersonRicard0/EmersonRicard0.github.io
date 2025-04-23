@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Edit, Trash } from "lucide-react";
 import NovoRoteiroModal from "@/components/NovoRoteiroModal";
 import PontosTuristicos from "@/components/PontosTuristicos";
+import FooterGaleria from "@/components/FooterGaleria";
 
 const roteirosExemplo = [
   {
@@ -145,6 +146,9 @@ export default function Dashboard() {
 
       {/* NOVA SEÇÃO: Pontos Turísticos */}
       <PontosTuristicos />
+
+      {/* RODAPÉ DE IMAGENS */}
+      <FooterGaleria />
     </div>
   );
 }
