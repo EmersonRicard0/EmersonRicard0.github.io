@@ -2,6 +2,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { LogIn } from "lucide-react";
+import NeonCard from "@/components/NeonCard";
 
 const recursos = [
   "Monte roteiros de viagem personalizados.",
@@ -36,15 +37,19 @@ const Index = () => {
           <h1 className="text-4xl font-bold mb-4 tracking-tight">
             <span className="text-primary">trip er</span>
           </h1>
-          <p className="text-lg text-gray-600 mb-6">
+          <p className="text-lg text-gray-600 mb-8">
             Organize suas viagens de forma fácil, visual e divertida. 
             Veja o que você pode fazer na plataforma:
           </p>
-          <ul className="text-base text-zinc-700 mb-8 text-left space-y-2 max-w-md mx-auto">
+          <ul className="mb-8 text-left space-y-0 max-w-md mx-auto">
             {recursos.map((desc, i) => (
-              <li key={i} className="flex items-start gap-2">
-                <span className="text-primary">•</span>
-                <span>{desc}</span>
+              <li key={i}>
+                <NeonCard>
+                  <span className="flex items-center gap-2">
+                    <span className="text-primary font-bold text-lg">•</span>
+                    <span className="text-base text-zinc-100 md:text-zinc-900">{desc}</span>
+                  </span>
+                </NeonCard>
               </li>
             ))}
           </ul>

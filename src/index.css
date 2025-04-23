@@ -99,3 +99,20 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Neon card glassmorphism  */
+.neon-card {
+  @apply bg-white/20 dark:bg-white/5 border-2 border-violet-400/60
+    rounded-xl shadow-md backdrop-blur-xl relative;
+  box-shadow:
+    0 0 16px 2px #a78bfa80,
+    0 0 5px 1px #38bdf870 inset;
+  border-image: linear-gradient(90deg,#a78bfa,#38bdf8,#f472b6) 1;
+  transition: box-shadow 0.2s;
+}
+.neon-card:hover {
+  box-shadow:
+    0 0 28px 6px #818cf8cc,
+    0 0 10px 3px #f472b680 inset;
+  border-color: #818cf8;
+}
