@@ -116,3 +116,16 @@
     0 0 10px 3px #f472b680 inset;
   border-color: #818cf8;
 }
+
+/* Minimal pastel glass card for pleasant, clear look */
+.minimal-card {
+  @apply bg-white/80 border border-[#E5DEFF] rounded-xl shadow transition duration-150 backdrop-blur-sm;
+  background: linear-gradient(109.6deg, #fbfbfa 11.2%, #e5deff 91.1%);
+  box-shadow: 0 2px 8px 0 #e2d1c328;
+  border: 1.5px solid #e5deff;
+}
+
+.minimal-card:hover {
+  @apply shadow-lg border-[#b6a6fa];
+  background: linear-gradient(109.6deg, #f5ebff 11.2%, #f1f0fb 91.1%);
+}

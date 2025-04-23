@@ -33,7 +33,7 @@ const Index = () => {
       </div>
       {/* Conteúdo central */}
       <div className="flex-1 flex items-center justify-center">
-        <div className="text-center max-w-lg mx-auto">
+        <div className="text-center max-w-xl mx-auto w-full">
           <h1 className="text-4xl font-bold mb-4 tracking-tight">
             <span className="text-primary">trip er</span>
           </h1>
@@ -41,13 +41,13 @@ const Index = () => {
             Organize suas viagens de forma fácil, visual e divertida. 
             Veja o que você pode fazer na plataforma:
           </p>
-          <ul className="mb-8 text-left space-y-0 max-w-md mx-auto">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10 px-2">
             {recursos.map((desc, i) => (
               <li key={i}>
                 <NeonCard>
-                  <span className="flex items-center gap-2">
+                  <span className="flex items-center gap-2 text-gray-700">
                     <span className="text-primary font-bold text-lg">•</span>
-                    <span className="text-base text-zinc-100 md:text-zinc-900">{desc}</span>
+                    <span className="text-base">{desc}</span>
                   </span>
                 </NeonCard>
               </li>
@@ -73,3 +73,4 @@ const Index = () => {
 };
 
 export default Index;
+
