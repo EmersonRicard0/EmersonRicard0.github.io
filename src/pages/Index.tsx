@@ -1,10 +1,12 @@
 
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { LogIn, ArrowDown, Star, Calendar, Edit, User } from "lucide-react";
+import { ArrowDown, Star, Calendar, Edit, User } from "lucide-react";
 import NeonCard from "@/components/NeonCard";
 import PontosTuristicos from "@/components/PontosTuristicos";
 import React, { useRef } from "react";
+import { Navbar } from "@/components/Navbar";
+import { Depoimentos } from "@/components/Depoimentos";
 
 const recursos = [
   "Monte roteiros de viagem personalizados.",
@@ -47,29 +49,11 @@ const Index = () => {
 
   return (
     <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 to-white">
-      {/* Top bar com botão de login/dashboard à direita */}
-      <div className="w-full flex justify-end p-4">
-        {loggedUser ? (
-          <Button onClick={() => navigate("/dashboard")} variant="outline" className="font-medium">
-            Dashboard
-          </Button>
-        ) : (
-          <Link to="/login">
-            <Button className="flex items-center gap-2 font-medium" variant="outline">
-              <LogIn size={18} /> Login
-            </Button>
-          </Link>
-        )}
-      </div>
+      <Navbar />
 
       {/* Hero Section */}
-      <div className="flex-1 flex items-center justify-center py-12">
+      <div className="flex-1 flex items-center justify-center py-16">
         <div className="text-center max-w-2xl mx-auto px-4">
-          <h1 className="text-5xl sm:text-6xl font-bold mb-6 tracking-tight flex justify-center items-center gap-2">
-            <span className="text-primary drop-shadow-glow">trip</span>
-            <span className="bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent drop-shadow-glow">er</span>
-            <span className="text-2xl animate-bounce mt-1 text-amber-400">★</span>
-          </h1>
           <p className="text-xl text-gray-600 mb-10 animate-fade-in leading-relaxed">
             Descubra e compartilhe experiências incríveis ao redor do mundo.<br />
             Veja o que você pode fazer na plataforma:
@@ -117,6 +101,9 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      {/* Depoimentos Section */}
+      <Depoimentos />
 
       {/* Como funciona section */}
       <section className="w-full bg-white/60 backdrop-blur-sm py-16">

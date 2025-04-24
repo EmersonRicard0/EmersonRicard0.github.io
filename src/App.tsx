@@ -25,6 +25,12 @@ const App = () => (
         <Routes>
           <Route path="/" element={<Index />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/explorar" element={<Index />} /> {/* Temporariamente redirecionando para Index */}
+          <Route path="/criar-roteiro" element={
+            <PrivateRoute>
+              <Dashboard />
+            </PrivateRoute>
+          } />
           <Route
             path="/dashboard"
             element={
@@ -33,7 +39,6 @@ const App = () => (
               </PrivateRoute>
             }
           />
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
