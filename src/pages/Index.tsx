@@ -46,91 +46,98 @@ const Index = () => {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-gray-100">
+    <div className="min-h-screen flex flex-col bg-gradient-to-b from-violet-50 to-white">
       {/* Top bar com botão de login/dashboard à direita */}
       <div className="w-full flex justify-end p-4">
         {loggedUser ? (
-          <Button onClick={() => navigate("/dashboard")} variant="outline">
+          <Button onClick={() => navigate("/dashboard")} variant="outline" className="font-medium">
             Dashboard
           </Button>
         ) : (
           <Link to="/login">
-            <Button className="flex items-center gap-2" variant="outline">
+            <Button className="flex items-center gap-2 font-medium" variant="outline">
               <LogIn size={18} /> Login
             </Button>
           </Link>
         )}
       </div>
-      {/* Conteúdo central */}
-      <div className="flex-1 flex items-center justify-center">
-        <div className="text-center max-w-xl mx-auto w-full">
-          <h1 className="text-4xl sm:text-5xl font-bold mb-4 tracking-tight flex justify-center items-center gap-2">
+
+      {/* Hero Section */}
+      <div className="flex-1 flex items-center justify-center py-12">
+        <div className="text-center max-w-2xl mx-auto px-4">
+          <h1 className="text-5xl sm:text-6xl font-bold mb-6 tracking-tight flex justify-center items-center gap-2">
             <span className="text-primary drop-shadow-glow">trip</span>
-            <span className="bg-gradient-to-r from-violet-500 to-pink-400 bg-clip-text text-transparent drop-shadow-glow">er</span>
+            <span className="bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent drop-shadow-glow">er</span>
             <span className="text-2xl animate-bounce mt-1 text-amber-400">★</span>
           </h1>
-          <p className="text-lg text-gray-600 mb-8 animate-fade-in">
-            Organize suas viagens de forma fácil, visual e divertida.<br />
+          <p className="text-xl text-gray-600 mb-10 animate-fade-in leading-relaxed">
+            Descubra e compartilhe experiências incríveis ao redor do mundo.<br />
             Veja o que você pode fazer na plataforma:
           </p>
 
-          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-5 mb-10 px-2">
+          <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 px-4">
             {recursos.map((desc, i) => (
               <li key={i} className="fade-in">
                 <NeonCard>
-                  <span className="flex items-center gap-2 text-gray-700">
-                    <span className="text-base">{desc}</span>
+                  <span className="flex items-center gap-2 text-gray-700 text-lg p-2">
+                    {desc}
                   </span>
                 </NeonCard>
               </li>
             ))}
           </ul>
 
-          {/* Scroll para Pontos Turísticos */}
-          <Button
-            className="flex items-center mx-auto gap-2 text-lg px-8 py-4 shadow-lg hover:scale-105 transition-transform mb-4 bg-violet-600 text-white animate-fade-in"
-            onClick={scrollToPontos}
-            variant="default"
-          >
-            Conheça destinos populares <ArrowDown size={22} className="animate-bounce" />
-          </Button>
-
-          {/* Botão principal central também */}
-          {loggedUser ? (
-            <Button className="text-lg px-8 py-4 animate-fade-in" onClick={() => navigate("/dashboard")}>
-              Acessar Dashboard
+          {/* CTA Buttons */}
+          <div className="space-y-4">
+            <Button
+              className="flex items-center mx-auto gap-2 text-lg px-10 py-6 shadow-lg hover:scale-105 transition-all bg-violet-600 hover:bg-violet-700 text-white animate-fade-in"
+              onClick={scrollToPontos}
+            >
+              Explorar destinos <ArrowDown size={22} className="animate-bounce" />
             </Button>
-          ) : (
-            <Link to="/login">
-              <Button className="text-lg px-8 py-4 animate-fade-in">Comece Agora</Button>
-            </Link>
-          )}
-          <div className="mt-8 text-gray-400 text-xs">
-            Plataforma Lovable - Projeto Demo
+
+            {loggedUser ? (
+              <Button 
+                className="text-lg px-10 py-6 animate-fade-in bg-white text-violet-700 hover:bg-violet-50" 
+                variant="outline"
+                onClick={() => navigate("/dashboard")}
+              >
+                Acessar Dashboard
+              </Button>
+            ) : (
+              <Link to="/login">
+                <Button 
+                  className="text-lg px-10 py-6 animate-fade-in bg-white text-violet-700 hover:bg-violet-50" 
+                  variant="outline"
+                >
+                  Começar Agora
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
 
-      {/* SEÇÃO COMO FUNCIONA */}
-      <section className="w-full bg-white/60 backdrop-blur-sm py-12 animate-fade-in">
-        <h2 className="text-2xl font-bold mb-8 text-center">Como funciona?</h2>
-        <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-5xl mx-auto px-4">
+      {/* Como funciona section */}
+      <section className="w-full bg-white/60 backdrop-blur-sm py-16">
+        <h2 className="text-3xl font-bold mb-10 text-center text-violet-900">Como funciona?</h2>
+        <div className="grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-4 max-w-6xl mx-auto px-6">
           {etapas.map((etapa, i) => (
             <div
               key={etapa.title}
-              className="rounded-xl bg-white shadow minimal-card p-6 flex flex-col items-center hover:scale-105 transition-transform fade-in"
+              className="rounded-xl bg-white shadow-lg p-8 flex flex-col items-center hover:scale-105 transition-all fade-in"
               style={{ animationDelay: `${i * 70}ms` }}
             >
-              <div className="mb-3">{etapa.icon}</div>
-              <div className="font-semibold text-lg mb-1">{etapa.title}</div>
-              <div className="text-gray-500 text-sm">{etapa.desc}</div>
+              <div className="mb-4 p-3 bg-violet-50 rounded-full">{etapa.icon}</div>
+              <h3 className="font-bold text-xl mb-2 text-violet-900">{etapa.title}</h3>
+              <p className="text-gray-600 text-center">{etapa.desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      {/* SEÇÃO PONTOS TURÍSTICOS */}
-      <div ref={pontosRef}>
+      {/* Pontos Turísticos Section */}
+      <div ref={pontosRef} className="bg-gradient-to-b from-white to-violet-50 py-16 px-4">
         <PontosTuristicos />
       </div>
     </div>
