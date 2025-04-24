@@ -34,6 +34,7 @@ export default function Login() {
         });
         
         if (error) throw error;
+        localStorage.setItem("logged_user", email);
         navigate("/dashboard", { replace: true });
       }
     } catch (error: any) {
