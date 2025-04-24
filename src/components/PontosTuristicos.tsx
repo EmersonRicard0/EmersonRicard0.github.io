@@ -108,31 +108,46 @@ const PontosTuristicos = () => {
   }
 
   return (
-    <section className="mt-12">
-      <h2 className="text-xl font-semibold mb-6">Locais mais visitados & Pontos Turísticos</h2>
+    <section className="mt-16 max-w-7xl mx-auto px-4">
+      <div className="text-center space-y-4 mb-12">
+        <h2 className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent">
+          Locais mais visitados & Pontos Turísticos
+        </h2>
+        <p className="text-gray-600 max-w-2xl mx-auto">
+          Descubra destinos incríveis compartilhados por nossa comunidade de viajantes 
+          e compartilhe suas próprias experiências
+        </p>
+      </div>
+
       {/* Novos locais adicionados pelo usuário */}
       {novosLocais.length > 0 && (
-        <div className="mb-8">
-          <h3 className="text-base font-semibold text-violet-600 mb-2">Novos lugares da comunidade</h3>
+        <div className="mb-16">
+          <div className="flex items-center gap-2 mb-6">
+            <h3 className="text-xl font-semibold text-violet-600">Experiências da Comunidade</h3>
+            <span className="px-3 py-1 bg-violet-100 text-violet-600 text-sm font-medium rounded-full">
+              Novo
+            </span>
+          </div>
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {novosLocais.map((p, i) => (
-              <Card key={i} className="minimal-card p-0 overflow-hidden flex flex-col">
-                <div className="w-full h-44 bg-gray-100 flex items-center justify-center overflow-hidden relative">
+              <Card key={i} className="group overflow-hidden hover:shadow-lg transition-all duration-300">
+                <div className="w-full h-48 overflow-hidden">
                   <img
                     src={p.imagemSrc}
                     alt={p.nome}
-                    className="object-cover w-full h-full"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
                     onError={e => (e.currentTarget.src = '/placeholder.svg')}
                   />
                 </div>
-                <CardContent className="p-4 flex-1 flex flex-col justify-between">
-                  <div>
-                    <div className="flex items-center gap-2 mb-1">
-                      <MapPin size={16} className="text-violet-600" />
-                      <span className="font-semibold text-gray-700">{p.nome}</span>
+                <CardContent className="p-5">
+                  <div className="space-y-3">
+                    <div className="flex items-center gap-2">
+                      <MapPin size={16} className="text-violet-600 shrink-0" />
+                      <h4 className="font-semibold text-gray-800 line-clamp-1">{p.nome}</h4>
                     </div>
-                    <div className="text-gray-500 text-xs flex items-center gap-1 mb-2">
-                      <Image size={14} className="opacity-60" /> {p.local}
+                    <div className="text-gray-500 text-sm flex items-center gap-1">
+                      <Image size={14} className="opacity-60 shrink-0" /> 
+                      <span className="line-clamp-1">{p.local}</span>
                     </div>
                     <AvaliacaoComentario
                       nome="Visitante"
@@ -147,29 +162,29 @@ const PontosTuristicos = () => {
         </div>
       )}
 
-      {/* Lista fixa de pontos turísticos top */}
+      {/* Lista fixa de pontos turísticos */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {pontosIniciais.map((ponto, i) => (
           <Card
             key={i}
-            className="minimal-card p-0 overflow-hidden flex flex-col hover:shadow-lg transition-shadow"
-            style={{
-              background: "linear-gradient(109.6deg,#fbfbfa 11.2%,#e5deff 91.1%)"
-            }}
+            className="group overflow-hidden hover:shadow-lg transition-all duration-300"
           >
-            <ImagemCarrossel images={ponto.imagens} />
-            <CardContent className="p-4 flex-1 flex flex-col justify-between">
-              <div>
-                <div className="flex items-center gap-2 mb-1">
-                  <MapPin size={16} className="text-violet-600" />
-                  <span className="font-semibold text-gray-700">{ponto.nome}</span>
+            <div className="relative">
+              <ImagemCarrossel images={ponto.imagens} />
+              <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
+            </div>
+            <CardContent className="p-5">
+              <div className="space-y-3">
+                <div className="flex items-center gap-2">
+                  <MapPin size={16} className="text-violet-600 shrink-0" />
+                  <h4 className="font-semibold text-gray-800 line-clamp-1">{ponto.nome}</h4>
                 </div>
-                <div className="text-gray-500 text-xs flex items-center gap-1 mb-2">
-                  <Image size={14} className="opacity-60" /> {ponto.local}
+                <div className="text-gray-500 text-sm flex items-center gap-1">
+                  <Image size={14} className="opacity-60 shrink-0" /> 
+                  <span className="line-clamp-1">{ponto.local}</span>
                 </div>
-                <div className="text-gray-600 text-sm mb-2">{ponto.desc}</div>
-                {/* Avaliações */}
-                <div>
+                <p className="text-sm text-gray-600 line-clamp-2">{ponto.desc}</p>
+                <div className="space-y-2">
                   {ponto.avaliacoes && ponto.avaliacoes.map((avaliacao, idx) => (
                     <AvaliacaoComentario
                       key={idx}
