@@ -46,6 +46,11 @@ export default function Login() {
 
   async function handleGoogleLogin() {
     try {
+      // Comentamos temporariamente o código do Google login
+      // e mostramos uma mensagem informativa para o usuário
+      toast.error("Login com Google não está disponível no momento. Por favor, use email e senha.");
+      
+      /* Para habilitar o login com Google, é necessário configurar no Supabase:
       const { error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -53,7 +58,7 @@ export default function Login() {
         }
       });
       
-      if (error) throw error;
+      if (error) throw error; */
     } catch (error: any) {
       toast.error(error.message);
     }
@@ -137,7 +142,7 @@ export default function Login() {
         <Button 
           type="button" 
           variant="outline" 
-          className="w-full"
+          className="w-full opacity-70"
           onClick={handleGoogleLogin}
         >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
@@ -158,7 +163,7 @@ export default function Login() {
               fill="#EA4335"
             />
           </svg>
-          Google
+          Google (indisponível)
         </Button>
 
         <div className="text-center mt-2">

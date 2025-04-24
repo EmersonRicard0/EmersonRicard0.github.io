@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Dashboard from "./pages/Dashboard";
 import Login from "./pages/Login";
+import Explorar from "./pages/Explorar";
 
 const queryClient = new QueryClient();
 
@@ -28,7 +29,7 @@ const App = () => {
             <Routes>
               <Route path="/" element={<Index />} />
               <Route path="/login" element={<Login />} />
-              <Route path="/explorar" element={<Index />} /> {/* Temporariamente redirecionando para Index */}
+              <Route path="/explorar" element={<Explorar />} />
               <Route path="/criar-roteiro" element={
                 <PrivateRoute>
                   <Dashboard />
