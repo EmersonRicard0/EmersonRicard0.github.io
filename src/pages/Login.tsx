@@ -13,6 +13,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [loading, setLoading] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -46,21 +47,22 @@ export default function Login() {
 
   async function handleGoogleLogin() {
     try {
-      // Comentamos temporariamente o código do Google login
-      // e mostramos uma mensagem informativa para o usuário
-      toast.error("Login com Google não está disponível no momento. Por favor, use email e senha.");
-      
-      /* Para habilitar o login com Google, é necessário configurar no Supabase:
-      const { error } = await supabase.auth.signInWithOAuth({
+      setGoogleLoading(true);
+      const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
           redirectTo: window.location.origin + '/dashboard'
         }
       });
       
-      if (error) throw error; */
+      if (error) throw error;
+      
+      // O redirecionamento será manipulado pelo Supabase OAuth
+      // Não precisamos definir localStorage aqui pois será feito após o redirecionamento
     } catch (error: any) {
-      toast.error(error.message);
+      toast.error(error.message || "Falha ao conectar com o Google. Por favor, tente novamente.");
+    } finally {
+      setGoogleLoading(false);
     }
   }
 
@@ -142,8 +144,9 @@ export default function Login() {
         <Button 
           type="button" 
           variant="outline" 
-          className="w-full opacity-70"
+          className="w-full"
           onClick={handleGoogleLogin}
+          disabled={googleLoading}
         >
           <svg className="mr-2 h-4 w-4" viewBox="0 0 24 24">
             <path
@@ -163,7 +166,7 @@ export default function Login() {
               fill="#EA4335"
             />
           </svg>
-          Google (indisponível)
+          {googleLoading ? "Conectando..." : "Google"}
         </Button>
 
         <div className="text-center mt-2">
