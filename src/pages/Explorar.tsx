@@ -5,8 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Search, Map } from "lucide-react";
 import PontosTuristicos from "@/components/PontosTuristicos";
-import FormularioNovoLocal from "@/components/FormularioNovoLocal";
-import { Card } from "@/components/ui/card";
 
 const Explorar = () => {
   return (
@@ -40,19 +38,7 @@ const Explorar = () => {
               <Map className="text-violet-600" size={20} />
               Destinos Populares
             </h2>
-            
-            <div className="text-center space-y-4 mb-12">
-              <h2 className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent">
-                Locais mais visitados & Pontos Turísticos
-              </h2>
-              <p className="text-gray-600 max-w-2xl mx-auto">
-                Descubra destinos incríveis compartilhados por nossa comunidade de viajantes 
-                e compartilhe suas próprias experiências
-              </p>
-            </div>
-
             <PontosTuristicos />
-            <FormularioNovoLocal onAdd={(data) => console.log('Novo local:', data)} />
           </div>
         </div>
       </div>

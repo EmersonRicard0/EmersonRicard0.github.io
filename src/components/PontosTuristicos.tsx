@@ -108,7 +108,7 @@ const PontosTuristicos = () => {
   }
 
   return (
-    <section className="mt-16 max-w-7xl mx-auto px-4">
+    <section className="mt-8">
       <div className="text-center space-y-4 mb-12">
         <h2 className="text-4xl font-bold bg-gradient-to-r from-violet-600 to-pink-500 bg-clip-text text-transparent">
           Locais mais visitados & Pontos Turísticos
