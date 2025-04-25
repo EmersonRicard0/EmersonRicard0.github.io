@@ -9,7 +9,80 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      pontos_turisticos: {
+        Row: {
+          created_at: string | null
+          descricao: string | null
+          endereco: string | null
+          id: string
+          nome: string
+          ordem: number
+          roteiro_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          descricao?: string | null
+          endereco?: string | null
+          id?: string
+          nome: string
+          ordem: number
+          roteiro_id: string
+        }
+        Update: {
+          created_at?: string | null
+          descricao?: string | null
+          endereco?: string | null
+          id?: string
+          nome?: string
+          ordem?: number
+          roteiro_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "pontos_turisticos_roteiro_id_fkey"
+            columns: ["roteiro_id"]
+            isOneToOne: false
+            referencedRelation: "roteiros"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      roteiros: {
+        Row: {
+          created_at: string | null
+          data_fim: string
+          data_inicio: string
+          destino: string
+          id: string
+          nome: string
+          status: Database["public"]["Enums"]["roteiro_status"] | null
+          updated_at: string | null
+          user_id: string
+        }
+        Insert: {
+          created_at?: string | null
+          data_fim: string
+          data_inicio: string
+          destino: string
+          id?: string
+          nome: string
+          status?: Database["public"]["Enums"]["roteiro_status"] | null
+          updated_at?: string | null
+          user_id: string
+        }
+        Update: {
+          created_at?: string | null
+          data_fim?: string
+          data_inicio?: string
+          destino?: string
+          id?: string
+          nome?: string
+          status?: Database["public"]["Enums"]["roteiro_status"] | null
+          updated_at?: string | null
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +91,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      roteiro_status: "draft" | "published" | "archived"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -133,6 +206,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      roteiro_status: ["draft", "published", "archived"],
+    },
   },
 } as const
