@@ -3,7 +3,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowDown, Star, Calendar, Edit, User } from "lucide-react";
 import NeonCard from "@/components/NeonCard";
-import PontosTuristicos from "@/components/PontosTuristicos";
 import React, { useRef } from "react";
 import { Navbar } from "@/components/Navbar";
 import { Depoimentos } from "@/components/Depoimentos";
@@ -123,9 +122,19 @@ const Index = () => {
         </div>
       </section>
 
-      {/* Pontos Turísticos Section */}
+      {/* Explorar Experiences Section - Updated to link to Explorar page */}
       <div ref={pontosRef} className="bg-gradient-to-b from-white to-violet-50 py-16 px-4">
-        <PontosTuristicos />
+        <div className="max-w-6xl mx-auto text-center">
+          <h2 className="text-3xl font-bold mb-6 text-violet-900">Experências Compartilhadas</h2>
+          <p className="text-lg text-gray-600 mb-8">
+            Descubra lugares incríveis compartilhados por outros viajantes ou compartilhe suas próprias experiências.
+          </p>
+          <Link to="/explorar">
+            <Button className="px-6 py-2 bg-violet-600 hover:bg-violet-700">
+              Ver Experiências Compartilhadas
+            </Button>
+          </Link>
+        </div>
       </div>
     </div>
   );

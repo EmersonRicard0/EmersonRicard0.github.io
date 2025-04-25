@@ -3,8 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Edit, Trash } from "lucide-react";
 import NovoRoteiroModal from "@/components/NovoRoteiroModal";
-import PontosTuristicos from "@/components/PontosTuristicos";
-// Removido: import FooterGaleria from "@/components/FooterGaleria";
+// Removed import PontosTuristicos
 
 const roteirosExemplo = [
   {
@@ -144,10 +143,7 @@ export default function Dashboard() {
       </div>
       <RoteirosList roteiros={roteiros} onDelete={handleDelete} onEdit={handleEdit} />
 
-      {/* NOVA SEÇÃO: Pontos Turísticos */}
-      <PontosTuristicos />
-
-      {/* FooterGaleria removido conforme solicitado */}
+      {/* PontosTuristicos section removed */}
     </div>
   );
 }
